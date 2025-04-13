@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breast Cancer Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Breast Cancer Prediction Form</h1>
+
+        <form action="/predict" method="POST">
+            <div class="report-container">
+                <!-- Patient Info -->
+                <div class="patient-info">
+                    <label for="name">Patient Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Patient Name" required>
+
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" placeholder="Patient Age">
+
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                    </select>
+                </div>
+                <div class="patient-image">
+                    <img src="{{ url_for('static', filename='care.gif') }}" alt="Patient Care Animation" class="care-animation">
+                </div>
+
+            </div>
+
+            <h2>Enter Tumor Features</h2>
+
+            <div class="features-container">
+                {% for i in range(column_names|length) %}
+                <div class="feature">
+                    <b><label for="feature{{ i }}">{{ column_names[i] }}</label></b>
+                    <input type="number" step="any" id="feature{{ i }}" name="feature{{ i }}" required>
+                </div>
+                {% endfor %}
+            </div>
+
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
